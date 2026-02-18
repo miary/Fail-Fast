@@ -1,66 +1,85 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Target, Trash2, ChevronRight } from 'lucide-react';
+import { Zap, AlertTriangle, Clock, Target } from 'lucide-react';
 
-const TechIntake = () => {
-  const [submissions, setSubmissions] = useState([]);
+const IntakeForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    category: 'AI',
+    timeToValue: 4,
+    risk: 5
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/evaluate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        // Reset form after successful drop into the funnel
+        setFormData({ name: '', category: 'AI', timeToValue: 4, risk: 5 });
+      }
+    } catch (err) {
+      console.error("Submission failed:", err);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-8 font-sans">
-      <header className="mb-12 flex justify-between items-center">
-        <div>
-          <h1 className="text-4xl font-black tracking-tighter bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            THE CRUCIBLE
-          </h1>
-          <p className="text-slate-500 uppercase tracking-widest text-xs mt-1">Fail Fast // Evaluate Often</p>
-        </div>
-      </header>
-
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* LEFT: Intake Form */}
-        <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-3xl backdrop-blur-xl">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <Zap className="text-cyan-400" size={20} /> New Solution Intake
-          </h2>
-          <form className="space-y-6">
-            <div>
-              <label className="block text-xs font-bold text-slate-500 mb-2 uppercase">Technology Name</label>
-              <input type="text" className="w-full bg-slate-800 border-none rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all" placeholder="e.g. Vector DB Implementation" />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-500 mb-2 uppercase">Time to Value (Weeks)</label>
-                <input type="number" className="w-full bg-slate-800 border-none rounded-xl p-4 outline-none" />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-500 mb-2 uppercase">Risk Level (1-10)</label>
-                <input type="number" className="w-full bg-slate-800 border-none rounded-xl p-4 outline-none" />
-              </div>
-            </div>
-            <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold shadow-lg shadow-cyan-900/20 transition-all flex justify-center items-center gap-2">
-              Drop into Funnel <ChevronRight size={18} />
-            </button>
-          </form>
-        </div>
-
-        {/* RIGHT: The Funnel Visualization */}
-        <div className="relative flex flex-col items-center">
-           <div className="w-full max-w-md h-[500px] relative overflow-hidden flex flex-col items-center">
-              {/* SVG Funnel Overlay */}
-              <svg viewBox="0 0 400 500" className="absolute inset-0 w-full h-full text-slate-800/50 fill-current">
-                <path d="M0,0 L400,0 L250,500 L150,500 Z" />
-              </svg>
-              
-              <div className="z-10 text-center pt-8">
-                <span className="text-xs font-bold text-cyan-400 bg-cyan-900/30 px-3 py-1 rounded-full">INTAKE ZONE</span>
-              </div>
-              
-              <div className="mt-auto pb-8 z-10 text-center">
-                <span className="text-xs font-bold text-green-400 bg-green-900/30 px-3 py-1 rounded-full">PROTOTYPE PHASE</span>
-              </div>
-           </div>
-        </div>
+    <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-3xl backdrop-blur-xl shadow-2xl">
+      <div className="flex items-center gap-2 mb-8">
+        <Zap className="text-cyan-400" size={20} />
+        <h2 className="text-xl font-bold tracking-tight">Solution Intake</h2>
       </div>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Technology Name</label>
+          <input 
+            type="text" 
+            required
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 focus:ring-2 focus:ring-cyan-500 outline-none transition-all placeholder:text-slate-700" 
+            placeholder="e.g. Distributed Vector Index" 
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+              <Clock size={12} /> Time to Value
+            </label>
+            <input 
+              type="number" 
+              value={formData.timeToValue}
+              onChange={(e) => setFormData({...formData, timeToValue: e.target.value})}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 outline-none focus:ring-2 focus:ring-cyan-500" 
+            />
+          </div>
+          <div>
+            <label className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+              <AlertTriangle size={12} /> Risk Level
+            </label>
+            <input 
+              type="number" 
+              min="1" max="10"
+              value={formData.risk}
+              onChange={(e) => setFormData({...formData, risk: e.target.value})}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 outline-none focus:ring-2 focus:ring-cyan-500" 
+            />
+          </div>
+        </div>
+
+        <button 
+          type="submit"
+          className="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg shadow-cyan-900/20 transition-all flex justify-center items-center gap-2 group"
+        >
+          Inject into Funnel
+          <Target size={18} className="group-hover:scale-125 transition-transform" />
+        </button>
+      </form>
     </div>
   );
 };
