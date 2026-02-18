@@ -1,0 +1,7 @@
+[
+  { "name": "Rust Micro-Engine", "timeToValue": 3, "risk": 4, "cost": 12000, "category": "Infrastructure", "status": "PROTOTYPE_CANDIDATE" },
+  { "name": "Legacy COBOL Wrapper", "timeToValue": 24, "risk": 9, "cost": 85000, "category": "Web", "status": "FAILED_FAST", "failureReason": "Velocity Threshold Exceeded" },
+  { "name": "HuggingFace Local LLM", "timeToValue": 2, "risk": 2, "cost": 5000, "category": "AI", "status": "PROTOTYPE_CANDIDATE" },
+  { "name": "Blockchain Auth Layer", "timeToValue": 14, "risk": 8, "cost": 120000, "category": "Security", "status": "FAILED_FAST", "failureReason": "Risk/Cost Ratio Unacceptable" },
+  { "name": "Tailwind UI Kit", "timeToValue": 1, "risk": 1, "cost": 0, "category": "Web", "status": "PROTOTYPE_CANDIDATE" }
+]

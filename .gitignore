@@ -1,0 +1,37 @@
+# Dependency Directories
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+
+# Build Artifacts
+client/build/
+dist/
+out/
+
+# Debug and Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# IDE and System Files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Docker Files (Optional - ignore if you want to keep configs but hide data)
+.docker/
