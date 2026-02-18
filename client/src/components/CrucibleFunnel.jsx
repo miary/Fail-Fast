@@ -91,3 +91,5 @@ const SubmissionParticle = ({ data }) => {
     </motion.div>
   );
 };
+
+export default CrucibleFunnel;

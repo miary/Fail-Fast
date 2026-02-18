@@ -65,3 +65,5 @@ const AdminDashboard = ({ history }) => {
     </div>
   );
 };
+
+export default AdminDashboard;

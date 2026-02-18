@@ -64,3 +64,5 @@ const TechIntake = () => {
     </div>
   );
 };
+
+export default IntakeForm;

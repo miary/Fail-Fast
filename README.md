@@ -139,3 +139,12 @@ Access:
 Frontend: http://localhost:3000
 
 API/Socket: http://localhost:5000
+
+#### 9. Clean Slate Recovery
+If the build fails due to metadata or cache corruption:
+
+Prune: docker system prune -f
+
+Explicit Build: docker compose build --pull --no-cache
+
+Ignition: docker compose up
