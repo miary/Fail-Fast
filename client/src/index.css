@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #020617; /* Slate-950 */
+  color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom glow for the "Survivor" particles */
+.survivor-glow {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+}
