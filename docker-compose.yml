@@ -20,11 +20,11 @@ services:
   frontend:
     build:
       context: ./client
-      dockerfile: Dockerfile
     ports:
       - "8080:3000"
     environment:
-      - REACT_APP_API_URL=http://localhost:5000
+      # Use the IP address you are using in the browser
+      - REACT_APP_API_URL=http://148.230.92.74:5000 
     depends_on:
       - backend
 

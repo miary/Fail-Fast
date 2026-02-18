@@ -24,3 +24,8 @@ app.post('/api/evaluate', (req, res) => {
         timestamp: new Date()
     });
 });
+
+app.use(cors({
+  origin: "*", // During dev, allow all. Or specifically: "http://148.230.92.74:8080"
+  methods: ["GET", "POST"]
+}));
